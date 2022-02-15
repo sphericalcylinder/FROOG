@@ -22,7 +22,7 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog()
-bus = Bus(Bus.STARTING_POSITION, 'Left')
+bus = Bus(Bus.STARTING_POSITION, 'Right')
 
 while True:
 	CLOCK.tick(FPS)

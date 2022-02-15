@@ -20,8 +20,8 @@ class Bus(pygame.sprite.Sprite):
         if self.direction == 'Left':
             self.rect.centerx -= Bus.MOVE_DIST
             if self.rect.right <= 0:
-                self.rect.centerx = Bus.SCREEN_DIM[0] + Bus.SIZE / 2
+                self.rect.centerx = Bus.SCREEN_DIM[0] + Bus.SIZE[0] / 2
         else:
             self.rect.centerx += Bus.MOVE_DIST
             if self.rect.left >= Bus.SCREEN_DIM[0]:
-                self.rect.centerx = -Bus.SIZE / 2
+                self.rect.centerx = -Bus.SIZE[0] / 2
