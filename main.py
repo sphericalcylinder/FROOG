@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 from froog import Froog
 #Froog pronounced "Froog"
 
@@ -7,6 +7,7 @@ pygame.init()
 SCREEN_DIM = WIDTH, HEIGHT = 600, 500
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
 pygame.display.set_caption("Froog go spEEd")
+pygame.event.set_allowed([pygame.KEYDOWN, pygame.QUIT])
 
 CLOCK = pygame.time.Clock()
 FPS = 60
@@ -24,6 +25,21 @@ froog = Froog()
 while True:
 	CLOCK.tick(FPS)
 	SCREEN.fill(BLACK)
+
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			sys.exit()
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_ESCAPE:
+				sys.exit()
+			if event.key == pygame.K_w or event.key == pygame.K_UP:
+				froog.move_up()
+			if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+				froog.move_left()
+			if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+				froog.move_down()
+			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+				froog.move_right()
 
 	SCREEN.blit(froog.image, froog.rect)
 
