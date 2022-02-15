@@ -1,6 +1,7 @@
 import pygame, sys
 from froog import Froog
 #Froog pronounced "Froog"
+from bus import Bus
 
 pygame.init()
 
@@ -21,6 +22,7 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog()
+bus = Bus(Bus.STARTING_POSITION, 'Left')
 
 while True:
 	CLOCK.tick(FPS)
@@ -41,6 +43,8 @@ while True:
 			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 				froog.move_right()
 
+	bus.move()
 	SCREEN.blit(froog.image, froog.rect)
+	SCREEN.blit(bus.image, bus.rect)
 
 	pygame.display.flip()
