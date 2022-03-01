@@ -13,7 +13,7 @@ class Bus(pygame.sprite.Sprite):
         super().__init__()
         self.image = Bus.LEFT_IMAGE if direction == 'Left' else Bus.RIGHT_IMAGE
         self.rect = pygame.Rect((0, 0), Bus.SIZE)
-        self.rect.center = Bus.STARTING_POSITION
+        self.rect.center = starting_position
         self.direction = direction
 
     def move(self):

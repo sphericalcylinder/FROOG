@@ -1,7 +1,8 @@
-import pygame, sys
+import pygame, sys, random
 from froog import Froog
 #Froog pronounced "Froog"
 from bus import Bus
+from street import Street
 from log import Log
 
 pygame.init()
@@ -23,8 +24,18 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog()
-bus = Bus(Bus.STARTING_POSITION, 'Left')
 log = Log(Log.STARTING_POSITION, 'Left')
+
+streets = []
+number_of_buses = 3
+street_height = 400
+
+for _ in range(2):
+	streets.append(Street(street_height, 'Left',
+random.randint(1, number_of_buses)))
+	streets.append(Street(street_height - 40, 'Right',
+random.randint(1, number_of_buses)))
+	street_height -= 80
 
 while True:
 	CLOCK.tick(FPS)
@@ -45,8 +56,15 @@ while True:
 			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 				froog.move_right()
 
-	if froog.rect.colliderect(bus.rect):
-		froog.reset_position()
+
+	for street in streets:
+		SCREEN.fill(GRAY, street.rect)
+		for bus in street.buses:
+			SCREEN.blit(bus.image, bus.rect)
+			bus.move()
+			if froog.rect.colliderect(bus.rect):
+				froog.reset_position()
+
 
 	if froog.rect.colliderect(log.rect):
 		froog.move_on_log(log)
@@ -56,7 +74,6 @@ while True:
 	
 	SCREEN.blit(log.image, log.rect)
 	SCREEN.blit(froog.image, froog.rect)
-	SCREEN.blit(bus.image, bus.rect)
 
 
 	pygame.display.flip()

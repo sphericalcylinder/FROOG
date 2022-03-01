@@ -8,7 +8,7 @@ class Froog(pygame.sprite.Sprite):
 	IMAGE = pygame.image.load('phostos/froog.png')
 	MOVE_DIST = 10
 	SCREEN_DIM = 600, 500
-	HACKS = True
+	HACKS = False
 
 	def __init__(self):
 		super().__init__()
@@ -50,7 +50,6 @@ class Froog(pygame.sprite.Sprite):
 			self.rect.centerx += Log.MOVE_DIST
 			print(self.rect.left)
 			if self.rect.left >= log.SCREEN_DIM[0]:
-			
 				if Froog.HACKS:
 					self.rect.centerx = -Log.SIZE[0] / 2
 				else:
