@@ -69,7 +69,6 @@ while True:
 	if froog.rect.colliderect(log.rect):
 		froog.move_on_log(log)
 
-	bus.move()
 	log.move()
 	
 	SCREEN.blit(log.image, log.rect)
