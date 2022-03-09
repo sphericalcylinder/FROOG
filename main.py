@@ -10,12 +10,13 @@ pygame.init()
 
 SCREEN_DIM = WIDTH, HEIGHT = 600, 500
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
-pygame.display.set_caption("Froog go spEEd")
+pygame.display.set_caption("Froog Highway")
 pygame.event.set_allowed([pygame.KEYDOWN, pygame.QUIT])
 
 CLOCK = pygame.time.Clock()
 FPS = 60
 HACKS = False
+RANDOM_TERRAIN = None
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -27,33 +28,17 @@ BLUE = (0, 0, 175)
 
 froog = Froog(HACKS)
 
-streets = []
-number_of_buses = 3
-street_height = 400
 
-#for _ in range(2):
-#	streets.append(Street(street_height, 'Left',
-#random.randint(1, number_of_buses)))
-#	print(street_height)
-#	streets.append(Street(street_height - 40, 'Right',
-#random.randint(1, number_of_buses)))
-#	street_height -= 80
-#	print(street_height)
+
 terrain = Generator()
 
-terrain.generate()
+if RANDOM_TERRAIN:
+	terrain.generate_midrandom()
+elif RANDOM_TERRAIN == False:
+	terrain.generate_uniform()
+else:
+	terrain.generate_fullrandom()
 
-
-#rivers = []
-#number_of_loogs = 3
-#river_height = 200
-#
-#for e in range(2):
-#	rivers.append(River(river_height, 'Left',
-#random.randint(1, number_of_loogs)))
-#	rivers.append(River(river_height - 30, 'Right',
-#random.randint(1, number_of_loogs)))
-#	river_height -= 60
 
 
 
