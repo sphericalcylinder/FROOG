@@ -27,7 +27,6 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog(HACKS)
-
 terrain = Generator()
 
 if RANDOM_TERRAIN:
@@ -36,7 +35,6 @@ elif RANDOM_TERRAIN == False:
 	terrain.generate_uniform()
 else:
 	terrain.generate_fullrandom()
-
 
 
 
