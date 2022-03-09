@@ -27,6 +27,10 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog(HACKS)
+
+levels = []
+for g in range(1, 5):
+	levels.append(Generator())
 terrain = Generator()
 
 if RANDOM_TERRAIN:

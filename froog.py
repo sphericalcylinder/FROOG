@@ -3,11 +3,12 @@ from loog import Loog
 
 class Froog(pygame.sprite.Sprite):
 
-	STARTING_POSITION = (300, 490)
+	STARTING_POSITION = (300, 480)
 	SIZE = (20, 10)
 	IMAGE = pygame.image.load('phostos/froog.png')
 	MOVE_DIST = 10
 	SCREEN_DIM = 600, 500
+	LEVEL = 0
 
 	def __init__(self, hacks: bool):
 		super().__init__()
@@ -20,10 +21,14 @@ class Froog(pygame.sprite.Sprite):
 	def move_up(self):
 		if self.rect.top >= 20:
 			self.rect.centery -= Froog.MOVE_DIST
+		else:
+			print("level up")
 
 	def move_down(self):
 		if self.rect.bottom <= Froog.SCREEN_DIM[1] - 20:
 			self.rect.centery += Froog.MOVE_DIST
+		else:
+			print("level down")
 
 	def move_left(self):
 		if self.rect.left >= 20:
