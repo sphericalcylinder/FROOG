@@ -16,7 +16,7 @@ pygame.event.set_allowed([pygame.KEYDOWN, pygame.QUIT])
 CLOCK = pygame.time.Clock()
 FPS = 60
 HACKS = False
-RANDOM_TERRAIN = None
+RANDOM_TERRAIN = True
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -27,8 +27,6 @@ GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
 froog = Froog(HACKS)
-
-
 
 terrain = Generator()
 
@@ -60,6 +58,9 @@ while True:
 				froog.move_down()
 			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 				froog.move_right()
+			if event.key == pygame.K_BACKSLASH and event.key == pygame.K_ESCAPE:
+				HACKS = True
+				froog = Froog(HACKS)
 
 
 	for street in terrain.streets:
@@ -81,7 +82,7 @@ while True:
 				froog.move_on_loog(loog)
 				froog_on_loog = True
 
-		if froog.rect.colliderect(river.rect) and not froog_on_loog:
+		if froog.rect.colliderect(river.rect) and not froog_on_loog and not HACKS:
 			froog.reset_position()
 
 
