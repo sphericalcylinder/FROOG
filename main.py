@@ -58,9 +58,17 @@ while True:
 				froog.move_down()
 			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 				froog.move_right()
-			if event.key == pygame.K_BACKSLASH and event.key == pygame.K_ESCAPE:
+			if event.key == pygame.K_BACKSLASH and not HACKS:
 				HACKS = True
+				froogpos = froog.rect.x, froog.rect.y
 				froog = Froog(HACKS)
+				froog.rect.x, froog.rect.y = froogpos
+			if event.key == pygame.K_SLASH and HACKS:
+				HACKS = False
+				froogpos = froog.rect.x, froog.rect.y
+				froog = Froog(HACKS)
+				froog.rect.x, froog.rect.y = froogpos
+
 
 
 	for street in terrain.streets:
