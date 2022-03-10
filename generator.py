@@ -10,7 +10,7 @@ class Generator:
         self.num_cars = 3
         self.num_loogs = 3
 
-    def generate_midrandom(self):
+    def generate_random(self):
         height = 400
         flipflop = False
         rand = -1
@@ -37,33 +37,6 @@ class Generator:
                     height -= 30
                     notriver = False
 
-    def generate_fullrandom(self):
-        height = 400
-        flipflop = False
-        rand = -1
-        notriver = False
-        for i in range(10):
-            if flipflop:
-                flipflop = False
-                direction = 'Left'
-            else:
-                flipflop = True
-                direction = 'Right'
-            rand = random.randint(0, 2)
-            match rand:
-                case 0:
-                    self.streets.append(Street(height, direction, random.randint(1, self.num_cars)))
-                    height -= 40
-                    notriver = True
-                case 1:
-                    if notriver:
-                        height += 10
-                    self.rivers.append(River(height, direction, random.randint(1, self.num_loogs)))
-                    height -= 30
-                    notriver = False
-                case 2:
-                    height -= 40
-                    notriver = True
                
 
     def generate_uniform(self):

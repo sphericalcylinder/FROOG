@@ -29,20 +29,20 @@ BLUE = (0, 0, 175)
 froog = Froog(HACKS)
 
 levels = []
-for g in range(1, 5):
+for g in range(10):
 	levels.append(Generator())
-terrain = Generator()
 
 if RANDOM_TERRAIN:
-	terrain.generate_midrandom()
-elif RANDOM_TERRAIN == False:
-	terrain.generate_uniform()
+	for h in levels:
+		h.generate_random()
 else:
-	terrain.generate_fullrandom()
+	for h in levels:
+		h.generate_uniform()
 
-
+terrain = levels[0]
 
 while True:
+	frooglevel = Froog.LEVEL
 	CLOCK.tick(FPS)
 	SCREEN.fill(BLACK)
 
@@ -71,8 +71,19 @@ while True:
 				froog = Froog(HACKS)
 				froog.rect.x, froog.rect.y = froogpos
 
-
-
+	if frooglevel != Froog.LEVEL:
+		if frooglevel <= Froog.LEVEL:
+			froogx = froog.rect.x
+			terrain = levels[Froog.LEVEL]
+			froog.rect.x = froogx
+			froog.rect.y = 480
+		elif frooglevel >= Froog.LEVEL:
+			froogx = froog.rect.x
+			terrain = levels[Froog.LEVEL]
+			froog.rect.x = froogx
+			froog.rect.y = 10
+		print(froog.LEVEL + 1)
+	
 	for street in terrain.streets:
 		SCREEN.fill(GRAY, street.rect)
 		for bus in street.buses:
@@ -94,7 +105,6 @@ while True:
 
 		if froog.rect.colliderect(river.rect) and not froog_on_loog and not HACKS:
 			froog.reset_position()
-
 
 	SCREEN.blit(froog.image, froog.rect)
 

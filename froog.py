@@ -22,13 +22,15 @@ class Froog(pygame.sprite.Sprite):
 		if self.rect.top >= 20:
 			self.rect.centery -= Froog.MOVE_DIST
 		else:
-			print("level up")
+			if Froog.LEVEL != 9:
+				Froog.LEVEL += 1
 
 	def move_down(self):
 		if self.rect.bottom <= Froog.SCREEN_DIM[1] - 20:
 			self.rect.centery += Froog.MOVE_DIST
 		else:
-			print("level down")
+			if Froog.LEVEL != 0:
+				Froog.LEVEL -= 1
 
 	def move_left(self):
 		if self.rect.left >= 20:
