@@ -92,7 +92,6 @@ while True:
 			terrain = levels[Froog.LEVEL]
 			froog.rect.x = froogx
 			froog.rect.y = 10
-		print(froog.LEVEL + 1)
 	
 	for street in terrain.streets:
 		SCREEN.fill(GRAY, street.rect)
