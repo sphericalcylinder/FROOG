@@ -9,6 +9,7 @@ SCREEN_DIM = WIDTH, HEIGHT = 600, 500
 SCREEN = pygame.display.set_mode(SCREEN_DIM)
 pygame.display.set_caption("Froog Highway")
 pygame.event.set_allowed([pygame.KEYDOWN, pygame.QUIT])
+watereffect = pygame.mixer.music.load('phostos/water.mp3')
 
 CLOCK = pygame.time.Clock()
 FPS = 60
@@ -63,11 +64,13 @@ while True:
 				pygame.display.set_mode(SCREEN_DIM)
 				froog = Froog(HACKS)
 				froog.rect.x, froog.rect.y = froogpos
+				pygame.mixer.music.play(-1)
 			if event.key == pygame.K_SLASH and HACKS:
 				HACKS = False
 				froogpos = froog.rect.x, froog.rect.y
 				froog = Froog(HACKS)
 				froog.rect.x, froog.rect.y = froogpos
+				pygame.mixer.music.stop()
 
 	if frooglevel != Froog.LEVEL:
 		if frooglevel <= Froog.LEVEL:
