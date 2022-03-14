@@ -2,6 +2,7 @@ import pygame, sys
 from froog import Froog
 #Froog pronounced "Froog"
 from generator import Generator
+from river import River
 
 pygame.init()
 
@@ -15,6 +16,7 @@ CLOCK = pygame.time.Clock()
 FPS = 60
 HACKS = False
 RANDOM_TERRAIN = True
+IMPOSSIBLE = True
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -27,12 +29,19 @@ BLUE = (0, 0, 175)
 froog = Froog(HACKS)
 
 levels = []
+
 for g in range(10):
 	levels.append(Generator())
 
+
 if RANDOM_TERRAIN:
-	for h in levels:
-		h.generate_random()
+	if not IMPOSSIBLE:
+		for h in levels:
+			h.generate_random()
+	else:
+		for h in levels:
+			h.generate_random()
+		levels[9].generate_impossible()
 else:
 	for h in levels:
 		h.generate_uniform()
@@ -58,14 +67,14 @@ while True:
 				froog.move_down()
 			if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 				froog.move_right()
-			if event.key == pygame.K_BACKSLASH and not HACKS:
+			if event.key == pygame.K_BACKSLASH and not HACKS and not IMPOSSIBLE:
 				HACKS = True
 				froogpos = froog.rect.x, froog.rect.y
 				pygame.display.set_mode(SCREEN_DIM)
 				froog = Froog(HACKS)
 				froog.rect.x, froog.rect.y = froogpos
 				pygame.mixer.music.play(-1)
-			if event.key == pygame.K_SLASH and HACKS:
+			if event.key == pygame.K_SLASH and HACKS and not IMPOSSIBLE:
 				HACKS = False
 				froogpos = froog.rect.x, froog.rect.y
 				froog = Froog(HACKS)

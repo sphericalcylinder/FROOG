@@ -1,4 +1,4 @@
-import random, pygame
+import random
 from street import Street
 from river import River
 
@@ -38,7 +38,6 @@ class Generator:
                     notriver = False
 
                
-
     def generate_uniform(self):
         street_height = 400
         river_height = 200
@@ -56,4 +55,7 @@ class Generator:
             self.rivers.append(River(river_height - 30, 'Right',
                 random.randint(1, self.num_loogs)))
             river_height -= 60
-            
+
+
+    def generate_impossible(self):
+            self.rivers.append(River(200, 'Right', 0))
