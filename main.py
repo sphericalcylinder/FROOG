@@ -1,11 +1,7 @@
-import pygame, sys, random
+import pygame, sys
 from froog import Froog
 #Froog pronounced "Froog"
-from street import Street
-from river import River
 from generator import Generator
-from etg import run
-
 
 pygame.init()
 
@@ -64,7 +60,6 @@ while True:
 			if event.key == pygame.K_BACKSLASH and not HACKS:
 				HACKS = True
 				froogpos = froog.rect.x, froog.rect.y
-				run(SCREEN)
 				pygame.display.set_mode(SCREEN_DIM)
 				froog = Froog(HACKS)
 				froog.rect.x, froog.rect.y = froogpos
