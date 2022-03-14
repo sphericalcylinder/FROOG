@@ -16,7 +16,7 @@ CLOCK = pygame.time.Clock()
 FPS = 60
 HACKS = False
 RANDOM_TERRAIN = True
-IMPOSSIBLE = True
+IMPOSSIBLE = False
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
