@@ -1,3 +1,4 @@
+from tkinter import S
 import pygame, sys
 from froog import Froog
 #Froog pronounced "Froog"
@@ -26,11 +27,21 @@ BROWN = (118, 92, 72)
 GRAY = (175, 175, 175)
 BLUE = (0, 0, 175)
 
+FONT = pygame.font.Font('phostos/joystix monospace.ttf', 20)
+MENU_LARGE = pygame.font.Font('phostos/joystix monospace.ttf', 50)
+MENU_MEDIUM = pygame.font.Font('phostos/joystix monospace.ttf', 25)
+MENU_SMALL = pygame.font.Font('phostos/joystix monospace.ttf', 15)
+
+
+START_MENU = True
+END_MENU = False
+
+
 froog = Froog(HACKS)
 
 levels = []
 
-for g in range(10):
+for g in range(5):
 	levels.append(Generator())
 
 
@@ -41,17 +52,63 @@ if RANDOM_TERRAIN:
 	else:
 		for h in levels:
 			h.generate_random()
-		levels[9].generate_impossible()
+		levels[4].generate_impossible()
 else:
 	for h in levels:
 		h.generate_uniform()
 
 terrain = levels[0]
 
+
+score = 0
+current_best = 0
+high_score = 0
+
 while True:
-	frooglevel = Froog.LEVEL
+	while START_MENU:
+		CLOCK.tick(15)
+		SCREEN.fill(GRAY)
+		name = MENU_LARGE.render("Froog Highway", True, WHITE)
+		instructions = MENU_SMALL.render("Press Space to start", True, WHITE)
+		SCREEN.blit(name, (50, 130))
+		SCREEN.blit(instructions, (80, 210))
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE:
+					START_MENU = False
+
+		pygame.display.update()
+
+	while END_MENU:
+		CLOCK.tick(15)
+		SCREEN.fill(GRAY)
+		thanks = MENU_MEDIUM.render("Thanks for playing!", True, WHITE)
+		finalscore = MENU_MEDIUM.render(f"Your final score is: {score + current_best}", True, WHITE)
+		instructions = MENU_MEDIUM.render("Press Space to play again", True, WHITE)
+		SCREEN.blit(thanks, (85, 120))
+		SCREEN.blit(finalscore, (70, 180))
+		SCREEN.blit(instructions, (60, 240))
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE:
+					froog.lives = 3
+					score = 0
+					current_best = 0
+					END_MENU = False
+					Froog.LEVEL = 0
+					terrain = levels[Froog.LEVEL]
+
+		pygame.display.update()
+
 	CLOCK.tick(FPS)
 	SCREEN.fill(BLACK)
+	frooglevel = Froog.LEVEL
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
@@ -87,11 +144,9 @@ while True:
 			terrain = levels[Froog.LEVEL]
 			froog.rect.x = froogx
 			froog.rect.y = 480
-		elif frooglevel >= Froog.LEVEL:
-			froogx = froog.rect.x
-			terrain = levels[Froog.LEVEL]
-			froog.rect.x = froogx
-			froog.rect.y = 10
+			froog.lives += 1
+			score += 1000 + current_best
+			current_best = 0
 	
 	for street in terrain.streets:
 		SCREEN.fill(GRAY, street.rect)
@@ -115,6 +170,27 @@ while True:
 		if froog.rect.colliderect(river.rect) and not froog_on_loog and not HACKS:
 			froog.reset_position()
 
+	if 475 - froog.rect.top > current_best:
+		current_best = 475 - froog.rect.top
+	
+	if score + current_best >= high_score:
+		high_score = score + current_best
+
+#	if froog.rect.top <= 19:
+#		froog.lives += 1
+#		score += 1000 + current_best
+#		current_best = 0
+
+	if froog.lives == 0:
+		END_MENU = True
+
+	score_text = FONT.render(f"Score: {score + current_best}", True, WHITE)
+	high_score_text = FONT.render(f"High Score: {high_score}", True, WHITE)
+	lives_text = FONT.render(f"Lives: {froog.lives}", True, WHITE)
+
 	SCREEN.blit(froog.image, froog.rect)
+	SCREEN.blit(score_text, (5, 0))
+	SCREEN.blit(high_score_text, (5, 20))
+	SCREEN.blit(lives_text, (5, 40))
 
 	pygame.display.flip()
